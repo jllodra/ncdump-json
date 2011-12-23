@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="79">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>/Volumes/home/jllodra/workspace/ncdump-json/cdl.h</itemPath>
+      <itemPath>/Volumes/home/jllodra/workspace/ncdump-json/config.h</itemPath>
+      <itemPath>/Volumes/home/jllodra/workspace/ncdump-json/dumplib.c</itemPath>
+      <itemPath>/Volumes/home/jllodra/workspace/ncdump-json/dumplib.h</itemPath>
+      <itemPath>/Volumes/home/jllodra/workspace/ncdump-json/indent.c</itemPath>
+      <itemPath>/Volumes/home/jllodra/workspace/ncdump-json/indent.h</itemPath>
+      <itemPath>/Volumes/home/jllodra/workspace/ncdump-json/isnan.h</itemPath>
+      <itemPath>ncdump-json.c</itemPath>
+      <itemPath>/Volumes/home/jllodra/workspace/ncdump-json/ncdump-json_copy.c</itemPath>
+      <itemPath>/Volumes/home/jllodra/workspace/ncdump-json/ncdump.h</itemPath>
+      <itemPath>/Volumes/home/jllodra/workspace/ncdump-json/nctime.c</itemPath>
+      <itemPath>/Volumes/home/jllodra/workspace/ncdump-json/nctime.h</itemPath>
+      <itemPath>/Volumes/home/jllodra/workspace/ncdump-json/utils.c</itemPath>
+      <itemPath>/Volumes/home/jllodra/workspace/ncdump-json/utils.h</itemPath>
+      <itemPath>/Volumes/home/jllodra/workspace/ncdump-json/vardata.c</itemPath>
+      <itemPath>/Volumes/home/jllodra/workspace/ncdump-json/vardata.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+      </compileType>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+    </conf>
+  </confs>
+</configurationDescriptor>
