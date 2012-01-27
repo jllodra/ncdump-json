@@ -153,8 +153,6 @@ typedef struct {			/* specification for how to format dump */
 				 * _Endianness, _Format, _Checksum,
 				 * _NoFill */
     
-    boolean is_json;            /* If true, outputs json */
-
     Nclang data_lang;		/* Specifies index conventions used in data
 				 * comments, either LANG_C (C, 0-based,
 				 * column major) or LANG_F (Fortran,

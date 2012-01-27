@@ -33,6 +33,8 @@
 
 char *progname;
 
+boolean is_json = false;
+
 static void
 usage(void) {
 #define USAGE   "\
@@ -351,8 +353,7 @@ pr_att_valgs(
   int kind,
   nc_type type,
   size_t len,
-  const void *vals,
-  boolean is_json
+  const void *vals
   ) {
   int iel;
   signed char sc;
@@ -570,8 +571,7 @@ pr_att(
   int kind,
   int varid,
   const char *varname,
-  int ia,
-  boolean is_json
+  int ia
   ) {
   ncatt_t att; /* attribute */
 
@@ -612,7 +612,7 @@ pr_att(
     NC_CHECK(nc_get_att(ncid, varid, att.name, att.valgp));
     if (att.type == NC_CHAR) /* null-terminate retrieved text att value */
       ((char *) att.valgp)[att.len] = '\0';
-    pr_att_valgs(kind, att.type, att.len, att.valgp, is_json);
+    pr_att_valgs(kind, att.type, att.len, att.valgp);
 #ifdef USE_NETCDF4
     /* If NC_STRING, need to free all the strings also */
     if (att.type == NC_STRING) {
@@ -766,8 +766,7 @@ pr_att_specials(
   int ncid,
   int kind,
   int varid,
-  const ncvar_t *varp,
-  boolean is_json
+  const ncvar_t *varp
   ) {
   /* No special variable attributes for classic or 64-bit offset data */
   if (kind == 1 || kind == 2)
@@ -971,7 +970,7 @@ pr_shape(ncvar_t* varp, ncdim_t *dims) {
 
 /* Print an enum type declaration */
 static void
-print_enum_type(int ncid, nc_type typeid) {
+print_enum_type(int ncid, nc_type typeid, boolean is_json) {
   char type_name[NC_MAX_NAME + 1];
   size_t type_size;
   nc_type base_nc_type;
@@ -1080,7 +1079,7 @@ print_ud_type(int ncid, nc_type typeid) {
       printf(" ;\n");
       break;
     case NC_ENUM:
-      print_enum_type(ncid, typeid);
+      print_enum_type(ncid, typeid, is_json);
       break;
     case NC_COMPOUND:
     {
@@ -1495,12 +1494,12 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
 
       /* print variable attributes */
       for (ia = 0; ia < var.natts; ia++) { /* print ia-th attribute */
-        pr_att(ncid, kind, varid, var.name, ia, specp->is_json);
+        pr_att(ncid, kind, varid, var.name, ia);
       }
 #ifdef USE_NETCDF4
       /* Print special (virtual) attributes, if option specified */
       if (specp->special_atts) {
-        pr_att_specials(ncid, kind, varid, &var, specp->is_json);
+        pr_att_specials(ncid, kind, varid, &var);
       }
 #endif /* USE_NETCDF4 */
     }
@@ -1517,7 +1516,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
         printf("// group attributes:\n");
     }
     for (ia = 0; ia < ngatts; ia++) { /* print ia-th global attribute */
-      pr_att(ncid, kind, NC_GLOBAL, "", ia, specp->is_json);
+      pr_att(ncid, kind, NC_GLOBAL, "", ia);
     }
     if (path != NULL && specp->special_atts) { /* output special attribute
 					   * for format variant */
@@ -1529,7 +1528,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
   if (!specp->header_only) {
     if (nvars > 0) {
       indent_out();
-      if (!specp->is_json) {
+      if (!is_json) {
         printf("data:\n");
       }
     }
@@ -1670,7 +1669,7 @@ do_ncdump(int ncid, const char *path, fspec_t* specp) {
   indent_init();
   indent_out();
   esc_specname = escaped_name(specp->name);
-  if (specp->is_json) { // JOSEP
+  if (is_json) { // JOSEP
     printf("{", esc_specname);
   } else {
     printf("netcdf %s {\n", esc_specname);
@@ -1972,7 +1971,6 @@ main(int argc, char *argv[]) {
     false, /* full annotations in data section?  */
     false, /* human-readable output for date-time values */
     false, /* output special attributes, eg chunking? */
-    false, /* do not output json as a default */
     LANG_C, /* language conventions for indices */
     0, /* if -v specified, number of variables */
     false, /* for DAP URLs, client-side cache used */
@@ -2067,7 +2065,7 @@ main(int argc, char *argv[]) {
         kind_out = true;
         break;
       case 'j':
-        fspec.is_json = true; /* output JSON javascript object notation */
+        is_json = true; /* output JSON javascript object notation */
         break;
       case 't': /* human-readable strings for time values */
         fspec.iso_times = true;

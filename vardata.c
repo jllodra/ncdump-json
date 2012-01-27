@@ -28,6 +28,7 @@
 static int linep;		/* line position, not counting global indent */
 static int max_line_len;	/* max chars per line, not counting global indent */
 
+extern boolean is_json;
 
 /* set position in line before lput() calls */
 static void
@@ -53,7 +54,7 @@ lput(const char *cp) {
     size_t nn = strlen(cp);
 
     if (nn+linep > max_line_len && nn > 2) {
-	if(0) { // JOSEP
+	if(!is_json) { // JOSEP
 	  (void) fputs("\n", stdout);
 	} else {
 	  // nothing to do, json has not enters
