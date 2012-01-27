@@ -52,13 +52,14 @@ usage(void)
   [-p n[,n]]       Display floating-point values with less precision\n\
   [-k]             Output kind of netCDF file\n\
   [-x]             Output XML (NcML) instead of CDL\n\
+  [-j]             Output JSON (Javascript object notation) instead of CDL\n\
   [-s]             Output special (virtual) attributes\n\
   [-t]             Output time data as date-time strings\n\
   [-w]             Without client-side caching of variables for DAP URLs\n\
   file             Name of netCDF file\n"
 
-    (void) fprintf(stderr,
-		   "%s [-c|-h] [-v ...] [[-b|-f] [c|f]] [-l len] [-n name] [-p n[,n]] [-k] [-x] [-s] [-t] [-w] file\n%s",
+    (void) fprintf(stderr, // FIXME: Quite sure it could be [-x|-j]
+		   "%s [-c|-h] [-v ...] [[-b|-f] [c|f]] [-l len] [-n name] [-p n[,n]] [-k] [-x] [-j] [-s] [-t] [-w] file\n%s",
 		   progname,
 		   USAGE);
     
