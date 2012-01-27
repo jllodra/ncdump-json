@@ -426,7 +426,7 @@ pr_att_valgs(
 		printf ("%s%s", gps, delim);
 	    } else {
 		if(isnan(ff)) {
-		    if(JSON) {
+		    if(json_out) { // JOSEP
 		        printf("null%s", delim);
 		    } else {
 		        printf("NaNf%s", delim);
@@ -449,7 +449,7 @@ pr_att_valgs(
 		printf ("%s%s", gps, delim);
 	    } else {
 		if(isnan(dd)) {
-                    if(JSON) {
+                    if(json_out) { // JOSEP
 		        printf("null%s", delim);
                     } else {
 		        printf("NaN%s", delim);
@@ -1711,7 +1711,7 @@ do_ncdump(int ncid, const char *path, fspec_t* specp)
    indent_init();
    indent_out();
    esc_specname=escaped_name(specp->name);
-   if(JSON) { // JOSEP
+   if(json_out) { // JOSEP
       printf ("{", esc_specname);
    } else {
       printf ("netcdf %s {\n", esc_specname);
@@ -2033,6 +2033,7 @@ main(int argc, char *argv[])
     int max_len = 80;		/* default maximum line length */
     int nameopt = 0;
     boolean xml_out = false;    /* if true, output NcML instead of CDL */
+    boolean json_out = false;
     boolean kind_out = false;	/* if true, just output kind of netCDF file */
 
 #ifdef HAVE_LOCALE_H
@@ -2117,6 +2118,9 @@ main(int argc, char *argv[])
         case 'k':	        /* just output what kind of netCDF file */
 	  kind_out = true;
 	  break;
+        case 'j': 
+          json_out = true;      /* output JSON javascript object notation */
+          break;
 	case 't':		/* human-readable strings for time values */
 	  fspec.iso_times = true;
 	  break;
