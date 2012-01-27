@@ -147,11 +147,13 @@ typedef struct {			/* specification for how to format dump */
     boolean iso_times;		/* if true, output date-time values as
 				 * human-readable strings.  */
 
-    boolean special_atts;		/* if true, output special attributes
+    boolean special_atts;	/* if true, output special attributes
 				 * for optimization characteristics:
 				 * _Compression, _Chunking,
 				 * _Endianness, _Format, _Checksum,
 				 * _NoFill */
+    
+    boolean is_json;            /* If true, outputs json */
 
     Nclang data_lang;		/* Specifies index conventions used in data
 				 * comments, either LANG_C (C, 0-based,
