@@ -28,6 +28,8 @@
 static float float_eps;
 static double double_eps;
 
+extern const boolean is_json;
+
 static float
 float_epsilon(void) {
   float float_eps;
@@ -812,7 +814,7 @@ ncint_typ_tostring(const nctype_t *typ, safebuf_t *sfbf, const void *valp) {
 static void
 float_special_tostring(float vv, char *sout) {
   if (isnan(vv)) {
-    if (0) { // JOSEP
+    if (!is_json) {
       snprintf(sout, PRIM_LEN, "%s", NCDL_NANF);
     } else {
       snprintf(sout, PRIM_LEN, "null", NCDL_NANF);
@@ -832,7 +834,7 @@ float_special_tostring(float vv, char *sout) {
 static void
 double_special_tostring(double vv, char *sout) {
   if (isnan(vv)) {
-    if (0) {
+    if (!is_json) {
       snprintf(sout, PRIM_LEN, "%s", NCDL_NAN);
     } else {
       snprintf(sout, PRIM_LEN, "null");

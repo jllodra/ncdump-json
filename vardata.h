@@ -9,7 +9,7 @@ extern char *progname; /* for error messages */
 /* Display for user-defined fill values and default floating-point fill
    values; should match what ncgen looks for in ../ncgen/ncgen.l */
 #define FILL_STRING "_"
-#define FILL_STRING_JSON "null" // JOSEP
+#define FILL_STRING_JSON "null"
 
 #ifdef __cplusplus
 extern "C" {

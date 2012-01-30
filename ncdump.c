@@ -1333,7 +1333,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
 #ifdef USE_NETCDF4
   /* Are there any user defined types in this group? */
   NC_CHECK(nc_inq_typeids(ncid, &ntypes, NULL));
-  if (specp->header_only) { // JOSEP
+  if (!is_json || specp->header_only) { // JOSEP
     if (ntypes) {
       int t;
 
@@ -1358,7 +1358,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
   NC_CHECK(nc_inq(ncid, &ndims, &nvars, &ngatts, &xdimid));
   /* get dimension info */
   dims = (ncdim_t *) emalloc((ndims + 1) * sizeof (ncdim_t));
-  if (specp->header_only) { // JOSEP
+  if (!is_json || specp->header_only) { // JOSEP
     if (ndims > 0) {
       indent_out();
       printf("dimensions:\n");
@@ -1383,7 +1383,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
   NC_CHECK(nc_inq_unlimdims(ncid, &nunlim, unlimids));
 
   /* For each dimension defined in this group, get and print out info. */
-  if (specp->header_only) { // JOSEP
+  if (!is_json || specp->header_only) { // JOSEP
     for (d_grp = 0; d_grp < ndims_grp; d_grp++) {
       int dimid = dimids_grp[d_grp];
       int is_unlimited = 0;
@@ -1445,7 +1445,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
   } // JOSEP
 #endif /* USE_NETCDF4 */
 
-  if (specp->header_only) { // JOSEP
+  if (!is_json || specp->header_only) { // JOSEP
     if (nvars > 0) {
       indent_out();
       printf("variables:\n");
@@ -1462,7 +1462,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
 
   memset((void*) &var, 0, sizeof (var));
 
-  if (specp->header_only) { // JOSEP
+  if (!is_json || specp->header_only) { // JOSEP
     for (varid = 0; varid < nvars; varid++) {
       NC_CHECK(nc_inq_varndims(ncid, varid, &var.ndims));
       if (var.dims != NULL) free(var.dims);
