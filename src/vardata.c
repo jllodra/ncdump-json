@@ -247,10 +247,10 @@ pr_any_vals(
       printf("%s, ", sb->buf);
       annotate(vp, fsp, cor, iel);
     } else {
-      if (0) {
-        sbuf_cat(sb, ", "); // JOSEP
+      if (!is_json) {
+        sbuf_cat(sb, ", ");
       } else {
-        sbuf_cat(sb, ","); // JOSEP
+        sbuf_cat(sb, ",");
       }
       lput(sbuf_str(sb));
     }
@@ -400,9 +400,11 @@ vardata(
     printf("\n");
     indent_out();
   } // JOSEP
+  
   /* 	printf(" %s = ", vp->name); */
   /*          or      */
   /* 	printf(" %s =\n  ", vp->name); */
+  
   if (!is_json) {
     printf(" ");
     print_name(vp->name);
