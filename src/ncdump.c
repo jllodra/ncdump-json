@@ -1428,7 +1428,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
   if (dimids_grp)
     free(dimids_grp);
 #else /* not using netCDF-4 */
-  if (specp->header_only) { // JOSEP
+  if (!is_json || specp->header_only) { // JOSEP
     for (dimid = 0; dimid < ndims; dimid++) {
       NC_CHECK(nc_inq_dim(ncid, dimid, dims[dimid].name, &dims[dimid].size));
       indent_out();
