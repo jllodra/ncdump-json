@@ -8,45 +8,9 @@
 
 /home/jllodra/workspace/ncdump-json/src/cdl.h
 
-/home/jllodra/workspace/ncdump-json/src/dumplib.c
-config.h
--
-stdarg.h
--
-stdio.h
--
-stdlib.h
--
-string.h
--
-ctype.h
--
-assert.h
--
-float.h
--
-math.h
--
-netcdf.h
--
-ncdump.h
-/home/jllodra/workspace/ncdump-json/src/ncdump.h
-dumplib.h
-/home/jllodra/workspace/ncdump-json/src/dumplib.h
-isnan.h
-/home/jllodra/workspace/ncdump-json/src/isnan.h
-nctime.h
-/home/jllodra/workspace/ncdump-json/src/nctime.h
-
 /home/jllodra/workspace/ncdump-json/src/dumplib.h
 config.h
 /home/jllodra/workspace/ncdump-json/src/config.h
-
-/home/jllodra/workspace/ncdump-json/src/indent.c
-stdio.h
--
-indent.h
-/home/jllodra/workspace/ncdump-json/src/indent.h
 
 /home/jllodra/workspace/ncdump-json/src/indent.h
 
@@ -96,45 +60,7 @@ cdl.h
 
 /home/jllodra/workspace/ncdump-json/src/ncdump.h
 
-/home/jllodra/workspace/ncdump-json/src/nctime.c
-stdlib.h
--
-stdio.h
--
-ctype.h
--
-math.h
--
-string.h
--
-stdarg.h
--
-nctime.h
 /home/jllodra/workspace/ncdump-json/src/nctime.h
-
-/home/jllodra/workspace/ncdump-json/src/nctime.h
-
-/home/jllodra/workspace/ncdump-json/src/vardata.c
-config.h
--
-stdio.h
--
-ctype.h
--
-stdlib.h
--
-string.h
--
-netcdf.h
--
-ncdump.h
-/home/jllodra/workspace/ncdump-json/src/ncdump.h
-dumplib.h
-/home/jllodra/workspace/ncdump-json/src/dumplib.h
-indent.h
-/home/jllodra/workspace/ncdump-json/src/indent.h
-vardata.h
-/home/jllodra/workspace/ncdump-json/src/vardata.h
 
 /home/jllodra/workspace/ncdump-json/src/vardata.h
 

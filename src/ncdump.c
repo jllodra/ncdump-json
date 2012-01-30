@@ -406,7 +406,7 @@ pr_att_valgs(
           printf("%s%s", gps, delim);
         } else {
           if (isnan(ff)) {
-            if (is_json) { // JOSEP
+            if (is_json) {
               printf("null%s", delim);
             } else {
               printf("NaNf%s", delim);
@@ -970,7 +970,7 @@ pr_shape(ncvar_t* varp, ncdim_t *dims) {
 
 /* Print an enum type declaration */
 static void
-print_enum_type(int ncid, nc_type typeid, boolean is_json) {
+print_enum_type(int ncid, nc_type typeid) {
   char type_name[NC_MAX_NAME + 1];
   size_t type_size;
   nc_type base_nc_type;
@@ -1079,7 +1079,7 @@ print_ud_type(int ncid, nc_type typeid) {
       printf(" ;\n");
       break;
     case NC_ENUM:
-      print_enum_type(ncid, typeid, is_json);
+      print_enum_type(ncid, typeid);
       break;
     case NC_COMPOUND:
     {
