@@ -1,0 +1,1 @@
+/usr/bin/gcc     CMakeFiles/ncdump-json.dir/ncdump.c.o CMakeFiles/ncdump-json.dir/vardata.c.o CMakeFiles/ncdump-json.dir/dumplib.c.o CMakeFiles/ncdump-json.dir/indent.c.o CMakeFiles/ncdump-json.dir/nctime.c.o  -o ncdump-json -rdynamic -lnetcdf 
