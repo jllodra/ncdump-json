@@ -34,13 +34,14 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/_ext/1915261946/vardata.o \
-	${OBJECTDIR}/_ext/1915261946/utils.o \
-	${OBJECTDIR}/_ext/1915261946/ncdump-json_copy.o \
-	${OBJECTDIR}/_ext/1915261946/indent.o \
-	${OBJECTDIR}/_ext/1915261946/nctime.o \
-	${OBJECTDIR}/_ext/1915261946/dumplib.o \
-	${OBJECTDIR}/ncdump-json.o
+	${OBJECTDIR}/src/nctime.o \
+	${OBJECTDIR}/src/rewrite-scalar.o \
+	${OBJECTDIR}/src/ncdump.o \
+	${OBJECTDIR}/src/indent.o \
+	${OBJECTDIR}/src/vardata.o \
+	${OBJECTDIR}/src/nciter.o \
+	${OBJECTDIR}/src/dumplib.o \
+	${OBJECTDIR}/src/ncdump-original.o
 
 
 # C Compiler Flags
@@ -67,40 +68,45 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/ncdump-json: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/ncdump-json ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/_ext/1915261946/vardata.o: /Volumes/home/jllodra/workspace/ncdump-json/vardata.c 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1915261946
+${OBJECTDIR}/src/nctime.o: src/nctime.c 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1915261946/vardata.o /Volumes/home/jllodra/workspace/ncdump-json/vardata.c
+	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/nctime.o src/nctime.c
 
-${OBJECTDIR}/_ext/1915261946/utils.o: /Volumes/home/jllodra/workspace/ncdump-json/utils.c 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1915261946
+${OBJECTDIR}/src/rewrite-scalar.o: src/rewrite-scalar.c 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1915261946/utils.o /Volumes/home/jllodra/workspace/ncdump-json/utils.c
+	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rewrite-scalar.o src/rewrite-scalar.c
 
-${OBJECTDIR}/_ext/1915261946/ncdump-json_copy.o: /Volumes/home/jllodra/workspace/ncdump-json/ncdump-json_copy.c 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1915261946
+${OBJECTDIR}/src/ncdump.o: src/ncdump.c 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1915261946/ncdump-json_copy.o /Volumes/home/jllodra/workspace/ncdump-json/ncdump-json_copy.c
+	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ncdump.o src/ncdump.c
 
-${OBJECTDIR}/_ext/1915261946/indent.o: /Volumes/home/jllodra/workspace/ncdump-json/indent.c 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1915261946
+${OBJECTDIR}/src/indent.o: src/indent.c 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1915261946/indent.o /Volumes/home/jllodra/workspace/ncdump-json/indent.c
+	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/indent.o src/indent.c
 
-${OBJECTDIR}/_ext/1915261946/nctime.o: /Volumes/home/jllodra/workspace/ncdump-json/nctime.c 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1915261946
+${OBJECTDIR}/src/vardata.o: src/vardata.c 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1915261946/nctime.o /Volumes/home/jllodra/workspace/ncdump-json/nctime.c
+	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/vardata.o src/vardata.c
 
-${OBJECTDIR}/_ext/1915261946/dumplib.o: /Volumes/home/jllodra/workspace/ncdump-json/dumplib.c 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1915261946
+${OBJECTDIR}/src/nciter.o: src/nciter.c 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1915261946/dumplib.o /Volumes/home/jllodra/workspace/ncdump-json/dumplib.c
+	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/nciter.o src/nciter.c
 
-${OBJECTDIR}/ncdump-json.o: ncdump-json.c 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/dumplib.o: src/dumplib.c 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/ncdump-json.o ncdump-json.c
+	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/dumplib.o src/dumplib.c
+
+${OBJECTDIR}/src/ncdump-original.o: src/ncdump-original.c 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ncdump-original.o src/ncdump-original.c
 
 # Subprojects
 .build-subprojects:
