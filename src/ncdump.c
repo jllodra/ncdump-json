@@ -273,7 +273,9 @@ pr_att_string(
         printf("\\\\");
         break;
       case '\'':
-        printf("\\'");
+        if (!is_json) { // not necessary to escape ' in json
+          printf("\\'");
+        }
         break;
       case '\"':
         printf("\\\"");
@@ -1657,7 +1659,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
       printf(","); // closing vars
     }
   }
-  
+
   if (!is_json || specp->header_only) { // JOSEP
     /* get global attributes */
     if (ngatts > 0 || specp->special_atts) {

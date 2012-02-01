@@ -1880,6 +1880,7 @@ escaped_name(const char* cp) {
           case '*':
           case ',':
           case ':':
+            if (is_json) break;
           case ';':
           case '<':
           case '=':
