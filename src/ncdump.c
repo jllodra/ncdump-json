@@ -1477,7 +1477,6 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
             if (!is_last) {
               printf(",");
             }
-            printf("}");
           } else {
             printf("UNLIMITED ; // (%lu currently)\n",
               (unsigned long) dims[d_grp].size);
@@ -1488,7 +1487,6 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
             if (!is_last) {
               printf(",");
             }
-            printf("}");
           } else {
             printf("%lu ;\n", (unsigned long) dims[d_grp].size);
           }
@@ -1501,7 +1499,6 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
             if (!is_last) {
               printf(",");
             }
-            printf("}");
           } else {
             printf("UNLIMITED ; // (%u currently)\n",
               (unsigned int) dims[d_grp].size);
@@ -1512,11 +1509,13 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
             if (!is_last) {
               printf(",");
             }
-            printf("}");
           } else {
             printf("%u ;\n", (unsigned int) dims[d_grp].size);
           }
         }
+      }
+      if (is_last) {
+        printf("}");
       }
     }
   } // JOSEP

@@ -8,36 +8,6 @@
 
 /home/jllodra/workspace/ncdump-json/src/cdl.h
 
-/home/jllodra/workspace/ncdump-json/src/dumplib.c
-config.h
--
-stdarg.h
--
-stdio.h
--
-stdlib.h
--
-string.h
--
-ctype.h
--
-assert.h
--
-float.h
--
-math.h
--
-netcdf.h
--
-ncdump.h
-/home/jllodra/workspace/ncdump-json/src/ncdump.h
-dumplib.h
-/home/jllodra/workspace/ncdump-json/src/dumplib.h
-isnan.h
-/home/jllodra/workspace/ncdump-json/src/isnan.h
-nctime.h
-/home/jllodra/workspace/ncdump-json/src/nctime.h
-
 /home/jllodra/workspace/ncdump-json/src/dumplib.h
 config.h
 /home/jllodra/workspace/ncdump-json/src/config.h
