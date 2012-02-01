@@ -380,13 +380,22 @@ pr_att_valgs(
     return;
   }
   /* else */
+  if (is_json) {
+    if (len > 1) {
+      printf("[");
+    }
+  }
   for (iel = 0; iel < len; iel++) {
     if (iel == len - 1)
       delim = "";
     switch (type) {
       case NC_BYTE:
         sc = ((signed char *) vals)[iel];
-        printf("%db%s", sc, delim);
+        if (!is_json) {
+          printf("%db%s", sc, delim);
+        } else {
+          printf("%d%s", sc, delim);
+        }
         break;
       case NC_SHORT:
         ss = ((short *) vals)[iel];
@@ -402,7 +411,9 @@ pr_att_valgs(
           int res;
           res = snprintf(gps, PRIM_LEN, float_att_fmt, ff);
           assert(res < PRIM_LEN);
-          tztrim(gps); /* trim trailing 0's after '.' */
+          if (!is_json) {
+            tztrim(gps); /* trim trailing 0's after '.' */
+          }
           printf("%s%s", gps, delim);
         } else {
           if (isnan(ff)) {
@@ -425,7 +436,9 @@ pr_att_valgs(
           int res;
           res = snprintf(gps, PRIM_LEN, double_att_fmt, dd);
           assert(res < PRIM_LEN);
-          tztrim(gps);
+          if (!is_json) {
+            tztrim(gps); /* trim trailing 0's after '.' */
+          }
           printf("%s%s", gps, delim);
         } else {
           if (isnan(dd)) {
@@ -435,10 +448,12 @@ pr_att_valgs(
               printf("NaN%s", delim);
             }
           } else if (isinf(dd)) {
+            if (is_json) printf("\"");
             if (dd < 0.0) {
               printf("-");
             }
             printf("Infinity%s", delim);
+            if ("is_json") printf("\"");
           }
         }
         break;
@@ -471,6 +486,11 @@ pr_att_valgs(
 #endif /* USE_NETCDF4 */
       default:
         error("pr_att_vals: bad type");
+    }
+  }
+  if (is_json) {
+    if (len > 1) {
+      printf("]");
     }
   }
 }
@@ -580,7 +600,9 @@ pr_att(
   att.tinfo = get_typeinfo(att.type);
 
   indent_out();
-  printf("\t\t");
+  if (!is_json) {
+    printf("\t\t");
+  }
 #ifdef USE_NETCDF4
   if (is_user_defined_type(att.type) || att.type == NC_STRING)
 #else
@@ -594,17 +616,28 @@ pr_att(
 
     /* printf ("\t\t%s ", att_type_name); */
     /* ... but handle special characters in CDL names with escapes */
-    print_type_name(ncid, att.type);
-    printf(" ");
+    if (!is_json) { // TODO: Check and fix this. We omit user def attrs for json.
+      print_type_name(ncid, att.type);
+      printf(" ");
+    }
   }
   /* 	printf ("\t\t%s:%s = ", varname, att.name); */
-  print_name(varname);
-  printf(":");
-  print_name(att.name);
-  printf(" = ");
+  if (!is_json) {
+    print_name(varname);
+    printf(":");
+    print_name(att.name);
+    printf(" = ");
+  } else {
+    printf("\"");
+    print_name(att.name);
+    printf("\":");
+  }
 
   if (att.len == 0) { /* show 0-length attributes as empty strings */
     att.type = NC_CHAR;
+    if (is_json) {
+      printf("\"\"");
+    }
   }
 
   if (!is_user_defined_type(att.type)) {
@@ -719,7 +752,9 @@ pr_att(
   }
 #endif /* USE_NETCDF4 */
 
-  printf(" ;\n");
+  if (!is_json) {
+    printf(" ;\n");
+  }
 }
 
 /* Common code for printing attribute name */
@@ -746,9 +781,14 @@ pr_att_global_format(
   int kind
   ) {
   pr_att_name(ncid, "", NC_ATT_FORMAT);
-  printf(" = ");
-  printf("\"%s\"", kind_string(kind));
-  printf(" ;\n");
+  if (is_json) {
+    printf(" = ");
+    printf("\"%s\"", kind_string(kind));
+    printf(" ;\n");
+  } else {
+    printf(":");
+    printf("\"%s\"", kind_string(kind));
+  }
 }
 
 
@@ -1341,7 +1381,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
       NC_CHECK(nc_inq_typeids(ncid, &ntypes, typeids));
       indent_out();
       if (is_json) {
-        printf("\"types\":{\n");
+        printf("\"types\":{");
       } else {
         printf("types:\n");
       }
@@ -1370,7 +1410,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
     if (ndims > 0) {
       indent_out();
       if (is_json) {
-        printf("\"dimensions\":{\n");
+        printf("\"dimensions\":{");
       } else {
         printf("dimensions:\n");
       }
@@ -1435,7 +1475,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
             if (!is_last) {
               printf(",");
             }
-            printf("}\n");
+            printf("}");
           } else {
             printf("UNLIMITED ; // (%lu currently)\n",
               (unsigned long) dims[d_grp].size);
@@ -1446,7 +1486,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
             if (!is_last) {
               printf(",");
             }
-            printf("}\n");
+            printf("}");
           } else {
             printf("%lu ;\n", (unsigned long) dims[d_grp].size);
           }
@@ -1459,7 +1499,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
             if (!is_last) {
               printf(",");
             }
-            printf("}\n");
+            printf("}");
           } else {
             printf("UNLIMITED ; // (%u currently)\n",
               (unsigned int) dims[d_grp].size);
@@ -1470,7 +1510,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
             if (!is_last) {
               printf(",");
             }
-            printf("}\n");
+            printf("}");
           } else {
             printf("%u ;\n", (unsigned int) dims[d_grp].size);
           }
@@ -1508,7 +1548,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
     if (nvars > 0) {
       indent_out();
       if (is_json) {
-        printf("\"variables\":{\n");
+        printf("\"variables\":{");
       } else {
         printf("variables:\n");
       }
@@ -1577,7 +1617,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
       }
 
       if (is_json) {
-        printf("],\"attributes\":\""); // attributes is a string now, change to array/obj
+        printf("],\"attributes\":{"); // attributes is a string now, change to array/obj
       } else {
         printf(" ;\n");
       }
@@ -1585,6 +1625,11 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
       /* print variable attributes */
       for (ia = 0; ia < var.natts; ia++) { /* print ia-th attribute */
         pr_att(ncid, kind, varid, var.name, ia);
+        if (is_json) {
+          if (ia < var.natts - 1) {
+            printf(",");
+          }
+        }
       }
 
 #ifdef USE_NETCDF4
@@ -1593,30 +1638,57 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
         pr_att_specials(ncid, kind, varid, &var);
       }
 #endif /* USE_NETCDF4 */
-      
+
       if (is_json) {
-        printf("\"}");
+        printf("}}");
         printf("%s", varid < nvars - 1 ? "," : "");
       }
     }
   } // JOSEP
 
-  if (specp->header_only) { // JOSEP
+  if (is_json) {
+    if (nvars > 0) {
+      printf("}"); // closing vars
+    }
+  }
+
+  if (is_json) {
+    if (ngatts > 0 || specp->special_atts) {
+      printf(","); // closing vars
+    }
+  }
+  
+  if (!is_json || specp->header_only) { // JOSEP
     /* get global attributes */
     if (ngatts > 0 || specp->special_atts) {
-      printf("\n");
+      if (!is_json) {
+        printf("\n");
+      }
       indent_out();
       if (path != NULL) /* top-level, root group */
-        printf("// global attributes:\n");
-      else
+        if (is_json) {
+          printf("\"global_attributes\":{");
+        } else {
+          printf("// global attributes:\n");
+        } else
+        if (is_json) {
+        printf("\"group_attributes\":{");
+      } else {
         printf("// group attributes:\n");
+      }
     }
     for (ia = 0; ia < ngatts; ia++) { /* print ia-th global attribute */
       pr_att(ncid, kind, NC_GLOBAL, "", ia);
+      if (ia < ngatts - 1) {
+        printf(",");
+      }
     }
     if (path != NULL && specp->special_atts) { /* output special attribute
 					   * for format variant */
       pr_att_global_format(ncid, kind);
+    }
+    if (is_json) {
+      printf("}");
     }
   } // JOSEP
 
@@ -1628,17 +1700,17 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
         printf("data:\n");
       }
     }
-    int c = 0; // JOSEP FIXME
-    int last = 0; // JOSEP FIXME
+    int c = 0; // JOSEP
+    int last = 0; // JOSEP
     for (varid = 0; varid < nvars; varid++) {
       int no_data;
       /* if var list specified, test for membership */
       if (specp->nlvars > 0 && !varmember(vlist, varid)) {
         continue;
-      } else { // JOSEP else FIXME
-        c++; // JOSEP FIXME
+      } else { // JOSEP
+        c++; // JOSEP
         if (c == specp->nlvars) last = 1;
-      } // JOSEP FIXME
+      } // JOSEP
       NC_CHECK(nc_inq_varndims(ncid, varid, &var.ndims));
       if (var.dims != NULL) free(var.dims);
       var.dims = (int *) emalloc((var.ndims + 1) * sizeof (int));
@@ -1759,7 +1831,7 @@ done:
 }
 
 static void
-do_ncdump(int ncid, const char *path, fspec_t* specp) {
+do_ncdump(int ncid, const char *path, fspec_t * specp) {
   char* esc_specname;
   /* output initial line */
   indent_init();
@@ -1778,7 +1850,7 @@ do_ncdump(int ncid, const char *path, fspec_t* specp) {
 }
 
 static void
-do_ncdumpx(int ncid, const char *path, fspec_t* specp) {
+do_ncdumpx(int ncid, const char *path, fspec_t * specp) {
   int ndims; /* number of dimensions */
   int nvars; /* number of variables */
   int ngatts; /* number of global attributes */
@@ -1879,7 +1951,7 @@ do_ncdumpx(int ncid, const char *path, fspec_t* specp) {
 }
 
 static void
-make_lvars(char *optarg, fspec_t* fspecp) {
+make_lvars(char *optarg, fspec_t * fspecp) {
   char *cp = optarg;
   int nvars = 1;
   char ** cpp;
@@ -2026,7 +2098,7 @@ nc_inq_varname_count(int ncid, char *varname) {
  * missing.  Returns 0 if no missing variables detected, otherwise
  * exits. */
 static int
-missing_vars(int ncid, fspec_t *specp) {
+missing_vars(int ncid, fspec_t * specp) {
   int iv;
   for (iv = 0; iv < specp->nlvars; iv++) {
     if (nc_inq_varname_count(ncid, specp->lvars[iv]) == 0) {
