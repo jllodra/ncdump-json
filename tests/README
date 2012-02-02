@@ -1,0 +1,3 @@
+Install yajl-tools (apt-get install yajl-tools in debian/ubuntu).
+
+Run ./run_tests.sh

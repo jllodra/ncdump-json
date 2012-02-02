@@ -409,23 +409,23 @@ vardata(
     printf(" ");
     print_name(vp->name);
   } else {
-    printf(" \"");
+    printf("\"");
     print_name(vp->name);
     printf("\"");
   }
   if (vrank <= 1) {
-    if (!is_json) { // JOSEP, CHANGE FOR HEADER ONLY.
+    if (!is_json) {
       printf(" = ");
       set_indent((int) strlen(vp->name) + 4 + indent_get());
     } else {
       printf(":[");
     }
-  } else { // FIXME FOR JSON IN THE FUTURE
+  } else {
     if (!is_json) {
       printf(" =\n  ");
       set_indent(2 + indent_get());
     } else {
-      printf(":\n");
+      printf(":[");
       set_indent(2 + indent_get());
     }
   }

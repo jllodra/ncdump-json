@@ -254,10 +254,12 @@ pr_att_string(
          * classic, 64-bit offset, or classic model files.  For
          * netCDF-4 files, don't generate linebreaks, because that
          * would create an extra string in a list of strings.  */
-        if (kind != NC_FORMAT_NETCDF4) {
-          printf("\\n\",\n\t\t\t\"");
-        } else {
-          printf("\\n");
+        if (!is_json) { // So, omit line-breaks if you are outputting json
+          if (kind != NC_FORMAT_NETCDF4) {
+            printf("\\n\",\n\t\t\t\"");
+          } else {
+            printf("\\n");
+        }
         }
         break;
       case '\r':
@@ -374,6 +376,8 @@ pr_att_valgs(
 #endif /* USE_NETCDF4 */
   char *delim = ", "; /* delimiter between output values */
 
+  if (is_json) delim = ",";
+  
   if (len == 0)
     return;
   if (type == NC_CHAR) {
@@ -455,7 +459,7 @@ pr_att_valgs(
               printf("-");
             }
             printf("Infinity%s", delim);
-            if ("is_json") printf("\"");
+            if (is_json) printf("\"");
           }
         }
         break;
@@ -1514,7 +1518,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
           }
         }
       }
-      if (is_last) {
+      if (is_json && is_last) {
         printf("}");
       }
     }
@@ -1541,7 +1545,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
   } // JOSEP
 #endif /* USE_NETCDF4 */
 
-  if (ndims && is_json) {
+  if (ndims && (!is_json || specp->header_only)) {
     printf(",");
   }
 
@@ -1648,13 +1652,13 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
   } // JOSEP
 
   if (is_json) {
-    if (nvars > 0) {
+    if (nvars > 0 && specp->header_only) {
       printf("}"); // closing vars
     }
   }
 
   if (is_json) {
-    if (ngatts > 0 || specp->special_atts) {
+    if ((ngatts > 0 || specp->special_atts) && specp->header_only) {
       printf(","); // closing vars
     }
   }
