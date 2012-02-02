@@ -17,7 +17,7 @@ $ ncdump-json tests/socib-buoy.nc -v AIRT -j
 ...
 ```
 
-It behaves exactly as original ncdump if you omit the command-line option -j
+It behaves exactly like the original ncdump if you omit the command-line option -j
 
 Download latest tag. Run "make" to compile, "make install" as root to place the bin in /usr/local/bin
 
