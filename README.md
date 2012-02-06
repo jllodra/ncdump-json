@@ -19,6 +19,8 @@ $ ncdump-json tests/socib-buoy.nc -v AIRT -j
 
 It behaves exactly like the original ncdump if you omit the command-line option -j
 
+---
+
 Installation:
 
 * Download latest tag, unzip. 
@@ -29,6 +31,8 @@ Installation:
 * #make install to place the bin in /usr/local/bin
 
 you can run the tests included: cd tests; ./run_tests.sh
+
+---
 
 SOCIB / Josep Llodrà - jllodra@socib.es
 
