@@ -1,5 +1,5 @@
-Ncdump output in json
----------------------
+Ncdump output in json (and CDL)
+-------------------------------
 
 Modified version of ncdump (netcdf 4.1.1)
 
@@ -19,7 +19,7 @@ $ ncdump-json tests/socib-buoy.nc -v AIRT -j
 
 It behaves exactly like the original ncdump if you omit the command-line option -j
 
-Download latest tag. Run "make" to compile, "make install" as root to place the bin in /usr/local/bin
+Download latest tag, unzip. Install cmake. Run "make" to compile, "make install" as root to place the bin in /usr/local/bin
 
 you can run the tests included: cd tests; ./run_tests.sh
 
