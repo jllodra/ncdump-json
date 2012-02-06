@@ -31,5 +31,6 @@ Installation:
 you can run the tests included: cd tests; ./run_tests.sh
 
 SOCIB / Josep Llodrà - jllodra@socib.es
+Thanks to jbeltran@socib.es for tips on cmake
 
 http://www.unidata.ucar.edu/software/netcdf/copyright.html
