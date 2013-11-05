@@ -34,7 +34,7 @@ you can run the tests included: cd tests; ./run_tests.sh
 
 ---
 
-SOCIB / Josep Llodrà - jllodra@socib.es
+SOCIB / Josep Llodrà - ~~jllodra@socib.es~~ jlg.hrtc@gmail.com
 
 Thanks to jbeltran@socib.es for his tips on cmake
 
