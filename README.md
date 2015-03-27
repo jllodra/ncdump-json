@@ -40,7 +40,7 @@ I keep receiving emails and issues from users,
 and I appreciate you all and always try to reply :)
 but this is software is no longer actively being maintained
 because I left my former company Socib 3 years ago.
-If you rely on this software and need help you can poke us at
+If you rely on this software and need help you can poke us at:
 
 http://atlantisofcode.com 
 
