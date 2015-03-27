@@ -8,6 +8,9 @@ cmake_minimum_required (VERSION 2.6)
 #  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
 set(CMAKE_BUILD_TYPE Release)
 
+# Uncomment to use gcc on macosx yosemite
+# set(CMAKE_C_COMPILER "gcc-4.9")
+
 # Show all compile warnings
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-long-long -pedantic")
 link_libraries(m)

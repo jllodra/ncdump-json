@@ -34,7 +34,18 @@ you can run the tests included: cd tests; ./run_tests.sh
 
 ---
 
-SOCIB / Josep Llodrà - ~~jllodra@socib.es~~ jlg.hrtc@gmail.com
+A note from the developer:
+
+I keep receiving emails and issues from users,
+and I appreciate you all and try to reply :)
+but this is software is no longer actively being maintained
+because I left my former company Socib 3 years ago.
+If you rely on this software and need help you can poke us at
+http://atlantisofcode.com 
+
+Josep Llodra – jlg.hrtc@gmail.com
+
+---
 
 Thanks to jbeltran@socib.es for his tips on cmake
 
