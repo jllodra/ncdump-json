@@ -32,6 +32,10 @@ Installation:
 
 you can run the tests included: cd tests; ./run_tests.sh
 
+Problems? Read Issues before asking:
+
+https://github.com/jllodra/ncdump-json/issues?utf8=✓&q=is%3Aissue
+
 ---
 
 **A note from the developer**
