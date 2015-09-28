@@ -405,11 +405,11 @@ pr_att_valgs(
         break;
       case NC_SHORT:
         ss = ((short *) vals)[iel];
-        printf("%ds%s", ss, delim);
+        printf("\"%ds%s\"", ss, delim);
         break;
       case NC_INT:
         ii = ((int *) vals)[iel];
-        printf("%d%s", ii, delim);
+        printf("\"%d%s\"", ii, delim);
         break;
       case NC_FLOAT:
         ff = ((float *) vals)[iel];
@@ -420,19 +420,19 @@ pr_att_valgs(
           if (!is_json) {
             tztrim(gps); /* trim trailing 0's after '.' */
           }
-          printf("%s%s", gps, delim);
+          printf("\"%s%s\"", gps, delim);
         } else {
           if (isnan(ff)) {
             if (is_json) {
-              printf("null%s", delim);
+              printf("\"null%s\"", delim);
             } else {
-              printf("NaNf%s", delim);
+              printf("\"NaNf%s\"", delim);
             }
           } else if (isinf(ff)) {
             if (ff < 0.0f) {
               printf("-");
             }
-            printf("Infinityf%s", delim);
+            printf("\"Infinityf%s\"", delim);
           }
         }
         break;
@@ -445,20 +445,20 @@ pr_att_valgs(
           if (!is_json) {
             tztrim(gps); /* trim trailing 0's after '.' */
           }
-          printf("%s%s", gps, delim);
+          printf("\"%s%s\"", gps, delim);
         } else {
           if (isnan(dd)) {
             if (is_json) { // JOSEP
-              printf("null%s", delim);
+              printf("\"null%s\"", delim);
             } else {
-              printf("NaN%s", delim);
+              printf("\"NaN%s\"", delim);
             }
           } else if (isinf(dd)) {
             if (is_json) printf("\"");
             if (dd < 0.0) {
               printf("-");
             }
-            printf("Infinity%s", delim);
+            printf("\"Infinity%s\"", delim);
             if (is_json) printf("\"");
           }
         }
