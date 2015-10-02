@@ -9,7 +9,7 @@ cmake_minimum_required (VERSION 2.6)
 set(CMAKE_BUILD_TYPE Release)
 
 # Uncomment to use GNU GCC on osx yosemite+ (LLVM clang won't work, see Issues on github, change "gcc-5" accordingly with your current version!)
-#set(CMAKE_C_COMPILER "gcc-5")
+set(CMAKE_C_COMPILER "gcc-5")
 
 # Show all compile warnings
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-long-long -pedantic")
@@ -26,7 +26,7 @@ pkg_check_modules( Netcdf REQUIRED netcdf )
 include_directories(src)
 FILE(GLOB Ncdump-json-src "src/*.c")
 
-#add_executable(ncdump-json ncdump.c vardata.c dumplib.c indent.c nctime.c)
+#add_executable(ncdump-json src/ncdump.c src/vardata.c src/dumplib.c src/indent.c src/nctime.c src/nciter.c)
 add_executable(ncdump-json ${Ncdump-json-src})
 
 target_link_libraries(ncdump-json ${Netcdf_LIBRARIES})

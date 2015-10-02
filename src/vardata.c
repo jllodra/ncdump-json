@@ -41,7 +41,7 @@ set_max_len(int len) {
   max_line_len = len - 2;
 }
 
-/* 
+/*
  * Output a string that should not be split across lines.  If it would
  * make current line too long, first output a newline and current
  * (nested group) indentation, then continuation indentation, then
@@ -118,7 +118,7 @@ lastdelim(boolean more, boolean lastrow) {
     }
   } else {
     if (lastrow) {
-      if (!is_json) { // JOSEP
+      if (!is_json) {
         printf(";");
       } else {
         printf("]");
@@ -142,14 +142,14 @@ lastdelim2(boolean more, boolean lastrow) {
     }
   } else {
     if (lastrow) {
-      if (!is_json) { // JOSEP
+      if (!is_json) {
         lput(" ;");
         lput("\n");
       } else {
         lput("]");
       }
     } else {
-      if (!is_json) { // JOSEP
+      if (!is_json) {
         lput(",\n");
         lput("  ");
       } else {
@@ -400,11 +400,11 @@ vardata(
     printf("\n");
     indent_out();
   } // JOSEP
-  
+
   /* 	printf(" %s = ", vp->name); */
   /*          or      */
   /* 	printf(" %s =\n  ", vp->name); */
-  
+
   if (!is_json) {
     printf(" ");
     print_name(vp->name);

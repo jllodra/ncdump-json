@@ -64,8 +64,8 @@ usage(void) {
     nc_inq_libvers());
 }
 
-/* 
- * convert pathname of netcdf file into name for cdl unit, by taking 
+/*
+ * convert pathname of netcdf file into name for cdl unit, by taking
  * last component of path and stripping off any extension.
  * DMH: add code to handle OPeNDAP url.
  * DMH: I think this also works for UTF8.
@@ -78,10 +78,10 @@ name_path(const char *path) {
 
 #ifdef vms
 #define FILE_DELIMITER ']'
-#endif    
+#endif
 #if defined(WIN32) || defined(msdos)
 #define FILE_DELIMITER '\\'
-#endif    
+#endif
 #ifndef FILE_DELIMITER /* default to unix */
 #define FILE_DELIMITER '/'
 #endif
@@ -198,7 +198,7 @@ kind_string(int kind) {
   }
 }
 
-/* 
+/*
  * Emit kind of netCDF file
  */
 static void
@@ -212,7 +212,7 @@ do_nckind(int ncid, const char *path) {
   NC_CHECK(nc_close(ncid));
 }
 
-/* 
+/*
  * Emit initial line of output for NcML
  */
 static void
@@ -350,7 +350,7 @@ pr_attx_string(
  * Print list of attribute values, for attributes of primitive types.
  * Attribute values must be printed with explicit type tags for
  * netCDF-3 primitive types, because CDL doesn't require explicit
- * syntax to declare such attribute types.  
+ * syntax to declare such attribute types.
  */
 static void
 pr_att_valgs(
@@ -377,7 +377,7 @@ pr_att_valgs(
   char *delim = ", "; /* delimiter between output values */
 
   if (is_json) delim = ",";
-  
+
   if (len == 0)
     return;
   if (type == NC_CHAR) {
@@ -405,7 +405,11 @@ pr_att_valgs(
         break;
       case NC_SHORT:
         ss = ((short *) vals)[iel];
-        printf("%ds%s", ss, delim);
+        if (!is_json) {
+          printf("%ds%s", ss, delim);
+        } else {
+          printf("%d%s", ss, delim);
+        }
         break;
       case NC_INT:
         ii = ((int *) vals)[iel];
@@ -588,7 +592,7 @@ pr_att_valsx(
   }
 }
 
-/* 
+/*
  * Print a variable attribute
  */
 static void
@@ -777,7 +781,7 @@ pr_att_name(
   print_name(attname);
 }
 
-/* 
+/*
  * Print special _Format global attribute, a virtual attribute not
  * actually stored in the file.
  */
@@ -800,7 +804,7 @@ pr_att_global_format(
 
 #ifdef USE_NETCDF4
 
-/* 
+/*
  * Print special reserved variable attributes, such as _Chunking,
  * _DeflateLevel, ...  These are virtual, not real, attributes
  * generated from the result of inquire calls.  They are of primitive
@@ -909,7 +913,7 @@ pr_att_specials(
 }
 #endif /* USE_NETCDF4 */
 
-/* 
+/*
  * Print a variable attribute for NcML
  */
 static void
@@ -1329,9 +1333,9 @@ get_timeinfo(int ncid, int varid, ncvar_t *vp) {
 
 /* Recursively dump the contents of a group. (Recall that only
  * netcdf-4 format files can have groups. On all other formats, there
- * is just a root group, so recursion will not take place.) 
+ * is just a root group, so recursion will not take place.)
  *
- * ncid: id of open file (first call) or group (subsequent recursive calls) 
+ * ncid: id of open file (first call) or group (subsequent recursive calls)
  * path: file path name (first call) or NULL if called for a group
  * specp: formatting spec
  */
@@ -2056,7 +2060,7 @@ set_precision(const char *optarg) {
    group is examined for a variable with that relative name.  */
 size_t
 nc_inq_varname_count(int ncid, char *varname) {
-  /* 
+  /*
      count = 0;
      status = nc_inq_gvarid(ncid, varname, varid);
      if (status == NC_NOERR)
@@ -2161,7 +2165,6 @@ main(int argc, char *argv[]) {
 #endif /* HAVE_LOCALE_H */
   opterr = 1;
   progname = argv[0];
-  set_formats(FLT_DIGITS, DBL_DIGITS); /* default for float, double data */
 
   /* If the user called ncdump without arguments, print the usage
    * message and return peacefully. */
@@ -2257,6 +2260,7 @@ main(int argc, char *argv[]) {
         return 0;
     }
 
+  set_formats(FLT_DIGITS, DBL_DIGITS); /* default for float, double data */
   set_max_len(max_len);
 
   argc -= optind;

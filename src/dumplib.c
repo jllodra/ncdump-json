@@ -321,8 +321,13 @@ set_formats(int float_digits, int double_digits) {
   res = snprintf(double_var_fmt, strlen(double_var_fmt) + 1, "%%.%dg",
     double_digits) + 1;
   assert(res <= sizeof (double_var_fmt));
-  res = snprintf(float_att_fmt, strlen(float_att_fmt) + 1, "%%#.%dgf",
+  if(is_json) {
+    res = snprintf(float_att_fmt, strlen(float_att_fmt) + 1, "%%#.%dg",
     float_digits) + 1;
+  } else {
+    res = snprintf(float_att_fmt, strlen(float_att_fmt) + 1, "%%#.%dgf",
+    float_digits) + 1;
+  }
   assert(res <= sizeof (float_att_fmt));
   res = snprintf(float_attx_fmt, strlen(float_attx_fmt) + 1, "%%#.%dg",
     float_digits) + 1;
@@ -461,7 +466,7 @@ varadd(vnode* vlist, int varid) {
   vlist -> next = newvp;
 }
 
-/* 
+/*
  * return 1 if variable identified by varid is member of variable
  * list vlist points to.
  */
@@ -611,7 +616,7 @@ ncint_val_equals(const nctype_t *this,
 
 #define absval(x)  ( (x) < 0 ? -(x) : (x) )
 
-/* 
+/*
  * Return ( *(float* )v1p == *(float* )v2p);
  * except use floating epsilon to compare very close vals as equal
  * and handle IEEE NaNs and infinities.
@@ -632,7 +637,7 @@ ncfloat_val_equals(const nctype_t *this,
   return false;
 }
 
-/* 
+/*
  * Return ( *(double* )v1p == *(double* )v2p);
  * except use floating epsilon to compare very close vals as equal
  * and handle IEEE NaNs and infinities.
@@ -1493,7 +1498,7 @@ nc_inq_gvarid(int grpid, const char *varname, int *varidp) {
   /* if varname has no "/" chars, then
         return varidp from nc_inq_varid(grpid, varname, varidp)
      if varname begins with "/"
-          
+
      else
         get groupname corresponding to grpid
         get vargroup = substring of varname up to last "/"
@@ -1550,7 +1555,7 @@ nc_inq_gvarid(int grpid, const char *varname, int *varidp) {
   return nc_inq_varid(grpid, varname, varidp);
 }
 
-/* Initialize typelist with primitive types.  For netCDF-3 only need primitive 
+/* Initialize typelist with primitive types.  For netCDF-3 only need primitive
    types. */
 static void
 init_prim_types(int ncid) {
@@ -1836,7 +1841,7 @@ is_user_defined_type(nc_type type) {
   return (typeinfop->class > 0);
 }
 
-/* 
+/*
  * Returns malloced name with chars special to CDL escaped.
  * Caller should free result when done with it.
  */
@@ -1911,7 +1916,7 @@ escaped_name(const char* cp) {
   return ret;
 }
 
-/* 
+/*
  * Print name with escapes for special characters
  */
 void
@@ -1921,7 +1926,7 @@ print_name(const char* name) {
   free(ename);
 }
 
-/* 
+/*
  * Return name of type in user-allocated space, whether built-in
  * primitive type or user-defined type.  Note: name must have enough
  * space allocated to hold type name.
@@ -1939,7 +1944,7 @@ get_type_name(int ncid, nc_type type, char *name) {
 #endif /* USE_NETCDF4 */
 }
 
-/* 
+/*
  * Print type name with CDL escapes for special characters.  locid is
  * the id of the group in which the type is referenced, which is
  * needed to determine whether an absolute type name must be printed.
