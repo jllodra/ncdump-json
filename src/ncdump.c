@@ -1383,7 +1383,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
 #ifdef USE_NETCDF4
   /* Are there any user defined types in this group? */
   NC_CHECK(nc_inq_typeids(ncid, &ntypes, NULL));
-  if (!is_json || specp->header_only) { // JOSEP
+  if (!is_json || specp->header_only) {
     if (ntypes) {
       int t;
 
@@ -1402,7 +1402,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
       indent_less();
       free(typeids);
     }
-  } // JOSEP
+  }
 #endif /* USE_NETCDF4 */
 
   if (ntypes && is_json) {
@@ -1416,7 +1416,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
   NC_CHECK(nc_inq(ncid, &ndims, &nvars, &ngatts, &xdimid));
   /* get dimension info */
   dims = (ncdim_t *) emalloc((ndims + 1) * sizeof (ncdim_t));
-  if (!is_json || specp->header_only) { // JOSEP
+  if (!is_json || specp->header_only) {
     if (ndims > 0) {
       indent_out();
       if (is_json) {
@@ -1425,7 +1425,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
         printf("dimensions:\n");
       }
     }
-  } // JOSEP
+  }
 
 #ifdef USE_NETCDF4
   /* In netCDF-4 files, dimids will not be sequential because they
@@ -1674,16 +1674,18 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
         printf("\n");
       }
       indent_out();
-      if (path != NULL) /* top-level, root group */
+      if (path != NULL) {/* top-level, root group */
         if (is_json) {
           printf("\"global_attributes\":{");
         } else {
           printf("// global attributes:\n");
-        } else
-        if (is_json) {
-        printf("\"group_attributes\":{");
+        }
       } else {
-        printf("// group attributes:\n");
+        if (is_json) {
+          printf("\"group_attributes\":{");
+        } else {
+          printf("// group attributes:\n");
+        }
       }
     }
     for (ia = 0; ia < ngatts; ia++) { /* print ia-th global attribute */
@@ -1696,7 +1698,7 @@ do_ncdump_rec(int ncid, const char *path, fspec_t* specp) {
 					   * for format variant */
       pr_att_global_format(ncid, kind);
     }
-    if (is_json) {
+    if (ngatts > 0 && is_json) {
       printf("}");
     }
   } // JOSEP

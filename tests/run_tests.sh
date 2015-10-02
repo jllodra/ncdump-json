@@ -3,10 +3,12 @@
 # sources
 src[1]=socib-buoy.nc
 src[2]=sresa1b_ncar_ccsm3-example.nc
+src[3]=testrh.nc
 
 # variable/s (for each source)
 var[1]=AIRT,AIRP
-var[2]=lon,lat
+var[2]=lon
+var[3]=var1
 
 # Tests
 
