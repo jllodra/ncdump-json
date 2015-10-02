@@ -1,3 +1,5 @@
+# Thanks to jbeltran@socib.es for his tips on cmake and also to all the contributors
+
 cmake_minimum_required (VERSION 2.6)
 
 # Set the build type.  Options are:
