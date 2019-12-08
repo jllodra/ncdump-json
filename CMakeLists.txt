@@ -26,9 +26,12 @@ find_package( PkgConfig REQUIRED )
 pkg_check_modules( Netcdf REQUIRED netcdf )
 
 include_directories(src)
-include_directories(/usr/local/Cellar/netcdf/4.6.3_1/include)
 FILE(GLOB Ncdump-json-src "src/*.c")
-FILE(GLOB Netcdf_LIBRARIES "/usr/local/Cellar/netcdf/4.6.3_1/lib/*.dylib")
+
+if(APPLE)
+	include_directories(/usr/local/Cellar/netcdf/4.6.3_1/include)
+	FILE(GLOB Netcdf_LIBRARIES "/usr/local/Cellar/netcdf/4.6.3_1/lib/*.dylib")
+endif()
 
 #add_executable(ncdump-json src/ncdump.c src/vardata.c src/dumplib.c src/indent.c src/nctime.c src/nciter.c)
 add_executable(ncdump-json ${Ncdump-json-src})

@@ -23,8 +23,8 @@ It behaves exactly like the original ncdump if you omit the command-line option 
 
 Installation:
 
-* Download latest tag, unzip. 
-* Install cmake and libnetcdf-dev
+* Download latest tag, unzip.
+* Install cmake, libnetcdf-dev and pkg-config
 * cd ncdump-json directory
 * $cmake .
 * $make (you might get some warnings, it is ok).
