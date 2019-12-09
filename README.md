@@ -7,7 +7,7 @@ Example:
 
 ```bash
 $ ncdump-json -h -j tests/socib-buoy.nc
-{"dimensions":{"time":3169},"variables":{"time":{"type":"double","dimensions":["time"],"attributes":{"standard_name":"time","units":"seconds since 1970-01-01 00:00:00","long_name":"time","_FillValue":-99999.9000000000,"axis":"T","calendar":"gregorian"}},"AIRT":{"type":"double","dimensions":["time"],"attributes":{"standard_name":"air_temperature","units":"C","long_name":"air temperature","_FillValue":-99999.9000000000,"coordinates":"time","valid_min":-15.0000000000000,"valid_max":45.0000000000000,"original_units":"C","observation_type":"measured","precision":"0.01"}},"QC_AIRT":{"type":"byte","dimensions":["time"],"attributes":{"long_name":"quality flag for air_temperature","quality_control_convention":"SOCIB Quality control Data Protocol","valid_min":0,"valid_max":9,"_FillValue":10,"flag_values":[0,1,4,9],"flag_meanings":"no_qc_performed good_data bad_data 
+{"dimensions":{"time":3169},"variables":{"time":{"type":"double","dimensions":["time"],"attributes":{"standard_name":"time","units":"seconds since 1970-01-01 00:00:00","long_name":"time","_FillValue":-99999.9000000000,"axis":"T","calendar":"gregorian"}},"AIRT":{"type":"double","dimensions":["time"],"attributes":{"standard_name":"air_temperature","units":"C","long_name":"air temperature","_FillValue":-99999.9000000000,"coordinates":"time","valid_min":-15.0000000000000,"valid_max":45.0000000000000,"original_units":"C","observation_type":"measured","precision":"0.01"}},"QC_AIRT":{"type":"byte","dimensions":["time"],"attributes":{"long_name":"quality flag for air_temperature","quality_control_convention":"SOCIB Quality control Data Protocol","valid_min":0,"valid_max":9,"_FillValue":10,"flag_values":[0,1,4,9],"flag_meanings":"no_qc_performed good_data bad_data
 ...
 ```
 
@@ -23,35 +23,32 @@ It behaves exactly like the original ncdump if you omit the command-line option 
 
 Installation:
 
-* Download latest tag, unzip.
-* Install cmake, libnetcdf-dev and pkg-config
-* cd ncdump-json directory
-* $cmake .
-* $make (you might get some warnings, it is ok).
-* #make install to place the bin in /usr/local/bin
+* Download latest **release** from https://github.com/jllodra/ncdump-json/releases, **unzip**.
+* Install **cmake**, **libnetcdf-dev** and **pkg-config**
+* **cd ncdump-json** directory
+* **$cmake .**
+* **$make** (you might get some warnings, it is ok).
+* At this point, the binary **ncdump-json** is available.
+* **#make install** to place the binary in /usr/local/bin
+* You can run the tests included and add more: **cd tests; ./run_tests.sh**
 
-you can run the tests included: cd tests; ./run_tests.sh
-
-Problems? Read Issues before asking:
-
-https://github.com/jllodra/ncdump-json/issues?utf8=✓&q=is%3Aissue
+Problems? It works (it's tested) on both *Linux* and *OSX*. Read the [Issues](https://github.com/jllodra/ncdump-json/issues?utf8=✓&q=is%3Aissue) before asking.
+Debian and Ubuntu users might find interesting this comment: https://github.com/jllodra/ncdump-json/pull/16#issuecomment-562950007
 
 ---
 
-**A note from the developer**
+**A note from the developer:**
 
 I keep receiving emails and issues from users,
-and I appreciate you all and always try to reply :)
-but this is software is no longer actively being maintained
-because I left my former company Socib 3 years ago.
-If you rely on this software and need help you can poke us at:
+those are welcome and I appreciate you all and always try to reply :)
+but this software is no longer actively being maintained
+because I left my former company Socib in 2012.
+If you rely on this program and need help, you're welcome to poke me through my company [Atlantis of Code](http://atlantisofcode.com) and we'll talk about it:
 
-http://atlantisofcode.com 
-
-Josep Llodra – jlg.hrtc@gmail.com
+Josep Llodrà – jlg.hrtc@gmail.com
 
 ---
 
-Thanks to jbeltran@socib.es for his tips on cmake
+Special thanks to all who [contributed](https://github.com/jllodra/ncdump-json/graphs/contributors) to this software filling **Issues** or sending **Pull Requests**.
 
 http://www.unidata.ucar.edu/software/netcdf/copyright.html

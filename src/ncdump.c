@@ -2167,6 +2167,7 @@ main(int argc, char *argv[]) {
 #endif /* HAVE_LOCALE_H */
   opterr = 1;
   progname = argv[0];
+  set_formats(FLT_DIGITS, DBL_DIGITS); /* default for float, double data */
 
   /* If the user called ncdump without arguments, print the usage
    * message and return peacefully. */
@@ -2262,7 +2263,6 @@ main(int argc, char *argv[]) {
         return 0;
     }
 
-  set_formats(FLT_DIGITS, DBL_DIGITS); /* default for float, double data */
   set_max_len(max_len);
 
   argc -= optind;
