@@ -24,7 +24,7 @@ It behaves exactly like the original ncdump if you omit the command-line option 
 Installation:
 
 * Download latest **release** from https://github.com/jllodra/ncdump-json/releases, **unzip**.
-* Install **cmake** and **libnetcdf-dev**
+* Install **cmake**, **libnetcdf-dev** and **pkg-config**
 * **cd ncdump-json** directory
 * **$cmake .**
 * **$make** (you might get some warnings, it is ok).
@@ -33,6 +33,7 @@ Installation:
 * You can run the tests included and add more: **cd tests; ./run_tests.sh**
 
 Problems? It works (it's tested) on both *Linux* and *OSX*. Read the [Issues](https://github.com/jllodra/ncdump-json/issues?utf8=✓&q=is%3Aissue) before asking.
+Debian and Ubuntu users might find interesting this comment: https://github.com/jllodra/ncdump-json/pull/16#issuecomment-562950007
 
 ---
 
