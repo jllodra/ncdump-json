@@ -2263,6 +2263,9 @@ main(int argc, char *argv[]) {
         return 0;
     }
 
+  if (is_json) {
+    fix_formats_for_json();
+  }
   set_max_len(max_len);
 
   argc -= optind;

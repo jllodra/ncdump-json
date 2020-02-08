@@ -98,6 +98,8 @@ init_epsilons(void) {
 static char* has_c_format_att(int ncid, int varid);
 static vnode* newvnode(void);
 
+int float_digits_set = 0;
+int double_digits_set = 0;
 int float_precision_specified = 0; /* -p option specified float precision */
 int double_precision_specified = 0; /* -p option specified double precision */
 char float_var_fmt[] = "%.NNg";
@@ -335,6 +337,13 @@ set_formats(int float_digits, int double_digits) {
   res = snprintf(double_att_fmt, strlen(double_att_fmt) + 1, "%%#.%dg",
     double_digits) + 1;
   assert(res <= sizeof (double_att_fmt));
+  float_digits_set = float_digits;
+  double_digits_set = double_digits;
+}
+
+void
+fix_formats_for_json() {
+  set_formats(float_digits_set, double_digits_set);
 }
 
 static char *

@@ -56,6 +56,8 @@ extern size_t strlcat(char *dst, const char *src, size_t siz);
 /* In case different formats specified with -d option, set them here. */
 extern void	set_formats ( int flt_digs, int dbl_digs );
 
+extern void     fix_formats_for_json ( void );
+
 /* Determine print format to use for each value for this variable. */
 const char *	get_fmt ( int ncid, int varid, nc_type typeid );
 
