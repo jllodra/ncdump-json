@@ -21,6 +21,26 @@ It behaves exactly like the original ncdump if you omit the command-line option 
 
 ---
 
+**NEW!**: Run it with Docker
+
+* No need to compile anything
+* Run from any Linux machine, OSX, Win10
+
+Steps:
+
+* Install Docker on your computer (https://docs.docker.com/get-docker/)
+* Download this repository (download as zip or clone)
+* CD to repository directory
+* Build the image: `docker build -t ncdump-json .`
+* Test the container: `docker run -it --rm ncdump-json -j tests/socib-buoy.nc`
+* Run the container using your own netcdf file: `docker run -it --rm -v "${PWD}/myfile.nc:/data/myfile.nc" ncdump-json -j /data/myfile.nc`
+
+Note: To build the image, you must be in the same directory as the Dockerfile. 
+To run the container, the -v argument (-v "host path:container path") allows the container to access the .nc file that is on your filesystem. 
+On Win10, it is slightly different because win paths are different from unix paths, google a bit and find more info.
+
+---
+
 Installation:
 
 * Download latest **release** from https://github.com/jllodra/ncdump-json/releases, **unzip**.
