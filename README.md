@@ -21,10 +21,11 @@ It behaves exactly like the original ncdump if you omit the command-line option 
 
 ---
 
-**NEW!**: Run it with Docker
+Run it with Docker (NEW!)
+---
 
 * No need to compile anything
-* Run from any Linux machine, OSX, Win10
+* Run from any Linux, OSX, Win10 machine
 
 Steps:
 
@@ -41,7 +42,8 @@ On Win10, it is slightly different because win paths are different from unix pat
 
 ---
 
-Installation:
+Installation
+---
 
 * Download latest **release** from https://github.com/jllodra/ncdump-json/releases, **unzip**.
 * Install **cmake**, **libnetcdf-dev** and **pkg-config**
@@ -62,7 +64,8 @@ Problems? It works (it's tested) on both *Linux* and *OSX*. Read the [Issues](ht
 
 ---
 
-**A note from the developer:**
+A note from the developer
+---
 
 I keep receiving emails and issues from users,
 those are welcome and I appreciate you all and always try to reply :)
