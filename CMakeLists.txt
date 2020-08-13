@@ -31,8 +31,8 @@ include_directories(src)
 FILE(GLOB Ncdump-json-src "src/*.c")
 
 if(APPLE)
-	include_directories(/usr/local/Cellar/netcdf/4.6.3_1/include)
-	FILE(GLOB Netcdf_LIBRARIES "/usr/local/Cellar/netcdf/4.6.3_1/lib/*.dylib")
+	include_directories(/usr/local/Cellar/netcdf/4.7.4/include)
+	FILE(GLOB Netcdf_LIBRARIES "/usr/local/Cellar/netcdf/4.7.4/lib/*.dylib")
 endif()
 
 #add_executable(ncdump-json src/ncdump.c src/vardata.c src/dumplib.c src/indent.c src/nctime.c src/nciter.c)
