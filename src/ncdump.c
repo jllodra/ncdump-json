@@ -419,7 +419,14 @@ pr_att_valgs(
         ff = ((float *) vals)[iel];
         if (isfinite(ff)) {
           int res;
-          res = snprintf(gps, PRIM_LEN, float_att_fmt, ff);
+          const char* fmt;
+          /* Avoid trailing '.' with # flag in format specifier for JSON */
+          if (!is_json) {
+            fmt = float_att_fmt;
+          } else {
+            fmt = float_var_fmt;
+          }
+          res = snprintf(gps, PRIM_LEN, fmt, ff);
           assert(res < PRIM_LEN);
           if (!is_json) {
             tztrim(gps); /* trim trailing 0's after '.' */
@@ -444,7 +451,14 @@ pr_att_valgs(
         dd = ((double *) vals)[iel];
         if (isfinite(dd)) {
           int res;
-          res = snprintf(gps, PRIM_LEN, double_att_fmt, dd);
+          const char* fmt;
+          /* Avoid trailing '.' with # flag in format specifier for JSON */
+          if (!is_json) {
+            fmt = double_att_fmt;
+          } else {
+            fmt = double_var_fmt;
+          }
+          res = snprintf(gps, PRIM_LEN, fmt, dd);
           assert(res < PRIM_LEN);
           if (!is_json) {
             tztrim(gps); /* trim trailing 0's after '.' */
