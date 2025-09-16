@@ -1,9 +1,67 @@
-Ncdump output in json (and CDL)
--------------------------------
+# ncdump-json — JSON (and CDL) output for netCDF
 
-Modified version of ncdump (netcdf 4.1.1)
+A modification of **ncdump** (netCDF 4.1.1) that adds **JSON** output.
+If you omit `-j`, it behaves exactly like the original `ncdump`.
 
-Example:
+---
+
+## Table of contents
+
+* [Features](#features)
+* [Quick start](#quick-start)
+* [Usage](#usage)
+* [Examples](#examples)
+* [Run with Docker](#run-with-docker)
+* [Install from source](#install-from-source)
+* [Platform notes](#platform-notes)
+* [Support & maintenance](#support--maintenance)
+* [Contributors & license](#contributors--license)
+
+---
+
+## Features
+
+* Drop-in replacement for `ncdump`; **use `-j` to emit JSON**.
+* Streams to stdout; easy to pipe into other tools.
+* Familiar `ncdump` options work as expected (e.g., `-h`, `-v var1,var2`).
+* Tested with **netCDF 4.1.1**.
+
+---
+
+## Quick start
+
+### Headers to JSON
+
+```bash
+ncdump-json -h -j tests/socib-buoy.nc
+```
+
+### Variable values to JSON
+
+```bash
+ncdump-json -v AIRT -j tests/socib-buoy.nc
+```
+
+Without `-j`, output is standard CDL—just like `ncdump`.
+
+---
+
+## Usage
+
+```text
+ncdump-json [options] file.nc
+
+Options (common with ncdump):
+  -h            # header only
+  -v var1,...   # restrict to variables
+  -j            # JSON output (otherwise CDL)
+```
+
+---
+
+## Examples
+
+### JSON header
 
 ```bash
 $ ncdump-json -h -j tests/socib-buoy.nc
@@ -11,72 +69,101 @@ $ ncdump-json -h -j tests/socib-buoy.nc
 ...
 ```
 
+### JSON values for a variable
+
 ```bash
 $ ncdump-json -v AIRT -j tests/socib-buoy.nc
 {"AIRT":[17.06,null,17.43,16.51,15.22,16.51,15.22,15.32,14.49,16.88,15.96,16.14,15.77,16.6,15.78,16.6,16.05,15.96,16.51,16.97,17.06,15.41,14.95,14.58,14.95,14.03,14.31,14.03,13.21,13.02,13.21,13.02,12.75,12.48,12.29,12.2,11.84,11.75,11.93,11.75,11.2,11.02,11.02,11.02,10.65,10.47,10.65,10.47,10.2,10.02,10.02,9.93,9.75,9.65,9.56,9.65,9.47,9.2,9.11,9.11,9.11,9.29,9.29,9.2,9.11,9.11,8.57,8.84,8.75,8.57,8.66,8.57,9.02,8.75,9.02,9.29,9.11,9.47,9.11,8.93,8.57,8.48,8.3,8.39,8.3,8.21,7.93,8.21,7.93,8.39,7.93,8.39,8.57,8.39,8.48,8.57,8.3,8.3,8.21,8.39,8.21,8.75,9.2,9.47,9.75,9.47,9.56,9.65,9.56,9.56,9.47,9.56
 ...
 ```
 
-It behaves exactly like the original ncdump if you omit the command-line option -j
+---
+
+## Run with Docker
+
+No toolchain needed. Works on Linux, macOS, and Windows 10+.
+
+1. Install Docker: [https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/)
+2. Clone or download this repository
+3. Build the image:
+
+```bash
+docker build -t ncdump-json .
+```
+
+4. Test:
+
+```bash
+docker run -it --rm ncdump-json -j tests/socib-buoy.nc
+```
+
+5. Use with your own file (mount current dir):
+
+```bash
+docker run -it --rm -v "$PWD:/data" ncdump-json -j /data/myfile.nc
+```
+
+> **Note (paths):** On Windows, Docker volume paths use Windows conventions. Mount the folder containing your `.nc` file and reference it inside the container (e.g., `-v "C:\path\to\data:/data"` then use `/data/file.nc`).
 
 ---
 
-Run it with Docker (NEW!)
----
+## Install from source
 
-* No need to compile anything
-* Run from any Linux, OSX, Win10 machine
+Download the latest **release**:
+[https://github.com/jllodra/ncdump-json/releases](https://github.com/jllodra/ncdump-json/releases)
 
-Steps:
+Dependencies:
 
-* Install Docker on your computer (https://docs.docker.com/get-docker/)
-* Download this repository (download as zip or clone)
-* CD to repository directory
-* Build the image: `docker build -t ncdump-json .`
-* Test the container: `docker run -it --rm ncdump-json -j tests/socib-buoy.nc`
-* Run the container using your own netcdf file: `docker run -it --rm -v "${PWD}/myfile.nc:/data/myfile.nc" ncdump-json -j /data/myfile.nc`
+* `cmake`
+* `libnetcdf-dev`
+* `pkg-config`
 
-Note: To build the image, you must be in the same directory as the Dockerfile. 
-To run the container, the -v argument (-v "host path:container path") allows the container to access the .nc file that is on your filesystem. 
-On Win10, it is slightly different because win paths are different from unix paths, google a bit and find more info.
+Build:
 
----
+```bash
+cd ncdump-json
+cmake .
+make          # warnings may appear; that’s okay
+sudo make install   # installs binary to /usr/local/bin
+```
 
-Installation
----
+Run tests (optional):
 
-* Download latest **release** from https://github.com/jllodra/ncdump-json/releases, **unzip**.
-* Install **cmake**, **libnetcdf-dev** and **pkg-config**
-* **cd ncdump-json** directory
-* **$cmake .**
-* **$make** (you might get some warnings, it is ok).
-* At this point, the binary **ncdump-json** is available.
-* **#make install** to place the binary in /usr/local/bin
-* You can run the tests included and add more: **cd tests; ./run_tests.sh**
-
-Problems? It works (it's tested) on both *Linux* and *OSX*. Read the [Issues](https://github.com/jllodra/ncdump-json/issues?utf8=✓&q=is%3Aissue) before asking.
+```bash
+cd tests
+./run_tests.sh
+```
 
 ---
 
-**Debian** and **Ubuntu** users might find this comment interesting: https://github.com/jllodra/ncdump-json/pull/16#issuecomment-562950007
+## Platform notes
 
-**FreeBSD** users: https://github.com/jllodra/ncdump-json/issues/17
+* Works (tested) on **Linux** and **macOS**.
+* **Debian/Ubuntu:** see this comment for package specifics:
+  [https://github.com/jllodra/ncdump-json/pull/16#issuecomment-562950007](https://github.com/jllodra/ncdump-json/pull/16#issuecomment-562950007)
+* **FreeBSD:** see:
+  [https://github.com/jllodra/ncdump-json/issues/17](https://github.com/jllodra/ncdump-json/issues/17)
 
----
-
-A note from the developer
----
-
-I keep receiving emails and issues from users,
-those are welcome and I appreciate you all and always try to reply :)
-but this software is no longer actively being maintained
-because I left my former company Socib in 2012.
-If you rely on this program and need help, you're welcome to poke me through my company [Atlantis of Code](http://atlantisofcode.com) and we'll talk about it:
-
-Josep Llodrà – jlg.hrtc@gmail.com
+Please check existing [Issues](https://github.com/jllodra/ncdump-json/issues?utf8=✓&q=is%3Aissue) before opening a new one.
 
 ---
 
-Special thanks to all who [contributed](https://github.com/jllodra/ncdump-json/graphs/contributors) to this software filling **Issues** or sending **Pull Requests**.
+## Support & maintenance
 
-http://www.unidata.ucar.edu/software/netcdf/copyright.html
+This project is not actively maintained. I’m grateful for the emails and issues and try to reply when I can, but I left SOCIB in 2012.
+
+If your work depends on this tool and you need help or enhancements, feel free to reach out via e-mail and we’ll discuss options:
+
+**Josep Llodrà** – [jlg.hrtc@gmail.com](mailto:jlg.hrtc@gmail.com)
+
+---
+
+## Contributors & license
+
+Thanks to everyone who has submitted issues and pull requests—your help keeps this useful for others.
+Contributors: [https://github.com/jllodra/ncdump-json/graphs/contributors](https://github.com/jllodra/ncdump-json/graphs/contributors)
+
+Upstream netCDF copyright and license:
+[http://www.unidata.ucar.edu/software/netcdf/copyright.html](http://www.unidata.ucar.edu/software/netcdf/copyright.html)
+
+---
