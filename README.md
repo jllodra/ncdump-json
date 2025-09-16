@@ -1,6 +1,7 @@
 # ncdump-json — JSON (and CDL) output for netCDF
 
 A modification of **ncdump** (netCDF 4.1.1) that adds **JSON** output.
+
 If you omit `-j`, it behaves exactly like the original `ncdump`.
 
 ---
@@ -161,6 +162,7 @@ If your work depends on this tool and you need help or enhancements, feel free t
 ## Contributors & license
 
 Thanks to everyone who has submitted issues and pull requests—your help keeps this useful for others.
+
 Contributors: [https://github.com/jllodra/ncdump-json/graphs/contributors](https://github.com/jllodra/ncdump-json/graphs/contributors)
 
 Upstream netCDF copyright and license:
